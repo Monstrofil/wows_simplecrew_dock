@@ -1,0 +1,94 @@
+diff --git "a/D:\\workspace\\game_client_files\\gui\\unbound\\dock.xml" b/dock.xml
+index 827924c..229c0bc 100644
+--- "a/D:\\workspace\\game_client_files\\gui\\unbound\\dock.xml"
++++ b/dock.xml
+@@ -17782,7 +17782,7 @@
+ 					<style>
+ 						<width value="100%"/>
+ 					</style>
+-					<bind name="instance" value="'ShipInfoCrewBlock'; isOwned &amp;&amp; (feature_13 != 'locked') ? {_crewId: playerShipInfo.crewId}	: null"/>
++					<bind name="instance" value="'ShipInfoCrewBlock'; isOwned &amp;&amp; (feature_13 != 'locked') ? {_crewId: playerShipInfo.crewId, _shipId: playerShipInfo.id}	: null"/>
+ 				</block>
+ 				<block>
+ 					<bind name="visible" value="crew.isUnique == true"/>
+@@ -28012,7 +28012,7 @@
+ 				</style>
+ 				<bind name="dispatch" value="'click'; 'evHideCoachScreen'"/>
+ 				<bind name="dispatch" value="'click'; 'evShowCrewToDock'"/>
+-				<bind name="instance" value="'ShipInfoCrewBlock'; {_crewId: playerShipInfo.crewId}"/>
++				<bind name="instance" value="'ShipInfoCrewBlock'; {_crewId: playerShipInfo.crewId, _shipId: playerShipInfo.id}"/>
+ 			</block>
+ 			<block className="icon_mouse_big_left" type="native">
+ 				<style>
+@@ -45662,9 +45662,32 @@
+ 		<bind name="feature" value="13; 'click'"/>
+ 		<style>
+ 			<width value="100%"/>
+-			<height value="80px"/>
++			<height value="135px"/>
+ 		</style>
+ 		<block>
++			<styleClass value="$MiddleAligned"/>
++			<block>
++				<bind name="collectionDH" value="CC.userPrefs; 'userPrefsCollection'"/>
++				<bind name="entityDH" value="'userPrefsEntity'; userPrefsCollection[0].id"/>
++				<bind name="watchDH" value="'userPrefs'; ['userPrefsEntity.userPrefs.evUserPrefsChanged']; userPrefsEntity.userPrefs.userPrefs"/>
++				<bind name="watch" value="'defaultCrewId'; (userPrefs.IMPositionX['crew_ship_' + _shipId] == null) ? 0 : userPrefs.IMPositionX['crew_ship_' + _shipId] "/>
++				<style>
++					<marginLeft value="5px"/>
++					<marginTop value="2px"/>
++				</style>
++
++				<block>
++					<style>
++						<width value="200px"/>
++						<height value="30px"/>
++					</style>
++					<bind name="tooltip" value="'MouseInstructionTooltip'; { _mouseInstructions: [{_type: 'left', _instructionText: ((defaultCrewId > 0) ? '{{ IDS_GET_CREW_BACK }}': '{{ IDS_PLEASE_CHOOSE_PRIMARY_CREW }}')}], _maxWidth: 250 }"/>
++					<bind name="instance" value="'DockButton'; {_name: 'AssignCrewButton',_label: ((defaultCrewId > 0) ? (defaultCrewId != _crewId ? '{{ IDS_GET_CREW_BACK_SHORT }}' : '{{ IDS_PRIMARY_CREW_SET }}'): '{{ IDS_NO_PRIMARY_CREW }}'), _enabled: (defaultCrewId > 0 &amp;&amp; defaultCrewId != _crewId), _dispatchEvent: 'evAssignCrewClick' }"/>
++					<bind name="request" value="'evAssignCrewClick'; 'assignCrewToShip'; { shipId: _shipId, crewID: defaultCrewId }"/>
++				</block>
++			</block>
++		</block>
++		<block>
+ 			<styleClass value="$Fullsize"/>
+ 			<bind name="instance" value="'CrewShipPanelBlock';		(_crewId &gt; 0)	? {_crewId: _crewId} : null"/>
+ 			<bind name="instance" value="'CrewHireShipPanelBlock';	(_crewId == 0)	? {} : null "/>
+@@ -46830,6 +46853,19 @@
+ 			</block>
+ 		</block>
+ 		<block>
++			<styleClass value="$ContextMenuListItem"/>
++			<block className="dock_submenu_item" type="native">
++				<styleClass value="$FullsizeAbsolute"/>
++				<bind name="action" value="'buttonClick' ; 'setUserPref' ; {value : crew.id, name : 'IMPositionX', subName: 'crew_ship_' + crew.shipID}"/>
++			</block>
++			<block type="text">
++				<styleClass value="$TextDefault"/>
++				<styleClass value="$MiddleVAligned"/>
++				<styleClass value="$ContextMenuListItemContent"/>
++				<text value="{{ IDS_MARK_AS_PRIMARY }}"/>
++			</block>
++		</block>
++		<block>
+ 			<bind name="visible" value="(_fromCrewSelect == true)"/>
+ 			<styleClass value="$ContextMenuListItem"/>
+ 			<block className="dock_submenu_item" type="native">
+@@ -48194,7 +48230,7 @@
+ 			<bind name="visible" value="	(selectedShipCrewRetraining.isInAdaptation != true) &amp;&amp; (selectedShipCrew.level &lt; crewsSingleton.maxLevel)"/>
+ 			<block className="indicator_progress_bar_lightgreen" type="native">
+ 				<style>
+-					<width value="150px"/>
++					<width value="120px"/>
+ 				</style>
+ 				<bind name="value" value="selectedShipCrew.experience"/>
+ 				<bind name="maximum" value="selectedShipCrew.experienceToRichNextLevel"/>
+@@ -48215,7 +48251,7 @@
+ 			<bind name="visible" value="(selectedShipCrewRetraining.isInAdaptation == true)"/>
+ 			<block className="indicator_progress_bar_red" type="native">
+ 				<style>
+-					<width value="150px"/>
++					<width value="120px"/>
+ 				</style>
+ 				<bind name="value" value="selectedShipCrewRetraining.adaptationExperienceEarned"/>
+ 				<bind name="maximum" value="selectedShipCrewRetraining.adaptationExperiencePenalty"/>

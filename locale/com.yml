@@ -1,0 +1,7 @@
+---
+IDS_GET_CREW_BACK: 'Get primary crew back to the ship'
+IDS_PLEASE_CHOOSE_PRIMARY_CREW: 'Primary crew is not set. Set primary crew using rigth-click on the ship commander.'
+IDS_GET_CREW_BACK_SHORT: 'Get primary crew back'
+IDS_NO_PRIMARY_CREW: 'Primary crew is not set'
+IDS_MARK_AS_PRIMARY: 'Mark crew as primary'
+IDS_PRIMARY_CREW_SET: 'Primary crew is already set'

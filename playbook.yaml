@@ -1,0 +1,32 @@
+---
+- name: Build simple crew modification for multiple regions
+  hosts: all
+  vars:
+   build_id: "{{ ansible_date_time.iso8601_micro | to_uuid }}"
+   title: "simple_crew"
+   game_version: 0.7.2.2
+   version: 1.0
+   region: "{{ lookup('env','REGION') }}"
+   timestamp: "{{lookup('pipe','date +%Y%m%d%H%M%S')}}"
+  roles:
+    - role: prepare
+    - role: install_dependencies
+      dependency_list:
+        - { git_repo: 'https://github.com/Monstrofil/game_client_files.git', destination: '@game-files' }
+    - role: copy_required_files
+      files:
+        - { src: '@game-files/gui/unbound/dock.xml',
+            destination: 'gui/unbound/' }
+        - { src: '@game-files/gui/flash/USSExpressionsLoader.xml',
+            destination: 'gui/flash/' }
+    - role: patch
+      patches:
+        - { patch: 'src/dock.xml.patch', original: 'gui/unbound/dock.xml' }
+    - role: translate
+      items:
+        - { filename: 'gui/unbound/dock.xml' }
+    - role: usscompile
+      files:
+        - { src: 'gui/unbound/dock.xml', name: 'simple_crew' }
+    - role: create_package
+    - role: cleanup
