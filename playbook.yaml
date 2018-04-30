@@ -4,7 +4,6 @@
   vars:
    build_id: "{{ ansible_date_time.iso8601_micro | to_uuid }}"
    title: "simple_crew"
-   game_version: 0.7.3.0
    version: 1.0
    region: "{{ lookup('env','REGION') }}"
    timestamp: "{{lookup('pipe','date +%Y%m%d%H%M%S')}}"
@@ -17,8 +16,6 @@
       files:
         - { src: '@game-files/gui/unbound/dock.xml',
             destination: 'gui/unbound/' }
-        - { src: '@game-files/gui/flash/USSExpressionsLoader.xml',
-            destination: 'gui/flash/' }
     - role: patch
       patches:
         - { patch: 'src/dock.xml.patch', original: 'gui/unbound/dock.xml' }
