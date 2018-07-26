@@ -1,8 +1,8 @@
-diff --git "a/D:\\workspace\\game_client_files\\gui\\unbound\\dock.xml" b/dock.xml
-index 827924c..229c0bc 100644
---- "a/D:\\workspace\\game_client_files\\gui\\unbound\\dock.xml"
-+++ b/dock.xml
-@@ -17782,7 +17782,7 @@
+diff --git a/gui/unbound/dock.xml b/gui/unbound/dock.xml
+index 5eb8be1..82f6cde 100644
+--- a/gui/unbound/dock.xml
++++ b/gui/unbound/dock.xml
+@@ -18578,7 +18578,7 @@
  					<style>
  						<width value="100%"/>
  					</style>
@@ -11,7 +11,7 @@ index 827924c..229c0bc 100644
  				</block>
  				<block>
  					<bind name="visible" value="crew.isUnique == true"/>
-@@ -28012,7 +28012,7 @@
+@@ -29522,7 +29522,7 @@
  				</style>
  				<bind name="dispatch" value="'click'; 'evHideCoachScreen'"/>
  				<bind name="dispatch" value="'click'; 'evShowCrewToDock'"/>
@@ -20,7 +20,7 @@ index 827924c..229c0bc 100644
  			</block>
  			<block className="icon_mouse_big_left" type="native">
  				<style>
-@@ -45662,9 +45662,32 @@
+@@ -47997,9 +47997,32 @@
  		<bind name="feature" value="13; 'click'"/>
  		<style>
  			<width value="100%"/>
@@ -51,10 +51,10 @@ index 827924c..229c0bc 100644
 +			</block>
 +		</block>
 +		<block>
- 			<styleClass value="$Fullsize"/>
- 			<bind name="instance" value="'CrewShipPanelBlock';		(_crewId &gt; 0)	? {_crewId: _crewId} : null"/>
- 			<bind name="instance" value="'CrewHireShipPanelBlock';	(_crewId == 0)	? {} : null "/>
-@@ -46830,6 +46853,19 @@
+ 			<style>
+ 				<marginLeft value="2px"/>
+ 				<marginRight value="2px"/>
+@@ -49194,6 +49217,19 @@
  			</block>
  		</block>
  		<block>
@@ -74,7 +74,7 @@ index 827924c..229c0bc 100644
  			<bind name="visible" value="(_fromCrewSelect == true)"/>
  			<styleClass value="$ContextMenuListItem"/>
  			<block className="dock_submenu_item" type="native">
-@@ -48194,7 +48230,7 @@
+@@ -50723,7 +50759,7 @@
  			<bind name="visible" value="	(selectedShipCrewRetraining.isInAdaptation != true) &amp;&amp; (selectedShipCrew.level &lt; crewsSingleton.maxLevel)"/>
  			<block className="indicator_progress_bar_lightgreen" type="native">
  				<style>
@@ -83,7 +83,7 @@ index 827924c..229c0bc 100644
  				</style>
  				<bind name="value" value="selectedShipCrew.experience"/>
  				<bind name="maximum" value="selectedShipCrew.experienceToRichNextLevel"/>
-@@ -48215,7 +48251,7 @@
+@@ -50744,7 +50780,7 @@
  			<bind name="visible" value="(selectedShipCrewRetraining.isInAdaptation == true)"/>
  			<block className="indicator_progress_bar_red" type="native">
  				<style>
