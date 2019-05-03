@@ -1,32 +1,33 @@
-diff --git a/gui/unbound/dock.xml b/gui/unbound/dock.xml
-index 5eb8be1..82f6cde 100644
---- a/gui/unbound/dock.xml
-+++ b/gui/unbound/dock.xml
-@@ -18578,7 +18578,7 @@
- 					<style>
- 						<width value="100%"/>
- 					</style>
--					<bind name="instance" value="'ShipInfoCrewBlock'; isOwned &amp;&amp; (feature_13 != 'locked') ? {_crewId: playerShipInfo.crewId}	: null"/>
-+					<bind name="instance" value="'ShipInfoCrewBlock'; isOwned &amp;&amp; (feature_13 != 'locked') ? {_crewId: playerShipInfo.crewId, _shipId: playerShipInfo.id}	: null"/>
+diff --git "a/D:\\workspace\\game_client_files\\gui\\unbound\\dock.xml" "b/C:\\Games\\World_of_Warships\\res_mods\\0.8.3.1\\gui\\unbound\\dock.xml"
+index 3bac6ae..4e16fe6 100644
+--- "a/D:\\workspace\\game_client_files\\gui\\unbound\\dock.xml"
++++ "b/C:\\Games\\World_of_Warships\\res_mods\\0.8.3.1\\gui\\unbound\\dock.xml"
+@@ -18704,7 +18704,7 @@
+ 							<width value="100%"/>
+ 						</style>
+ 						<bind name="instance" value="'ShipInfoCrewBlock'; isOwned &amp;&amp; (feature_13 != 'locked')	? {	_crewId: crewId,
+-																									_isNotExpanded: !(isExpanded)}
++																									_isNotExpanded: !(isExpanded), _shipId: shipOwnEntity.ownShip.id}
+ 																								: null"/>
+ 					</block>
  				</block>
- 				<block>
- 					<bind name="visible" value="crew.isUnique == true"/>
-@@ -29522,7 +29522,7 @@
+@@ -30147,7 +30147,7 @@
  				</style>
  				<bind name="dispatch" value="'click'; 'evHideCoachScreen'"/>
- 				<bind name="dispatch" value="'click'; 'evShowCrewToDock'"/>
--				<bind name="instance" value="'ShipInfoCrewBlock'; {_crewId: playerShipInfo.crewId}"/>
-+				<bind name="instance" value="'ShipInfoCrewBlock'; {_crewId: playerShipInfo.crewId, _shipId: playerShipInfo.id}"/>
+ 				<bind name="action" value="'buttonClick'; 'changeInset'; {inset: LobbyConstants.CREW}"/>
+-				<bind name="instance" value="'ShipInfoCrewBlock'; {_crewId: crewId}"/>
++				<bind name="instance" value="'ShipInfoCrewBlock'; {_crewId: crewId, _shipId: shipOwnEntity.ownShip.id}"/>
  			</block>
  			<block className="icon_mouse_big_left" type="native">
  				<style>
-@@ -47997,9 +47997,32 @@
+@@ -52640,10 +52640,33 @@
  		<bind name="feature" value="13; 'click'"/>
  		<style>
  			<width value="100%"/>
 -			<height value="80px"/>
 +			<height value="135px"/>
  		</style>
+ 		<bind name="transition" value="_isNotExpanded; 0.15; {height: 80}; {height: 30}; {height: 80}"/>
  		<block>
 +			<styleClass value="$MiddleAligned"/>
 +			<block>
@@ -51,10 +52,10 @@ index 5eb8be1..82f6cde 100644
 +			</block>
 +		</block>
 +		<block>
- 			<style>
- 				<marginLeft value="2px"/>
- 				<marginRight value="2px"/>
-@@ -49194,6 +49217,19 @@
+ 			<styleClass value="$Fullsize"/>
+ 			<bind name="instance" value="'CrewShipPanelBlock';		(_crewId &gt; 0)	? {_crewId: _crewId, _isNotExpanded: _isNotExpanded} : null"/>
+ 			<bind name="instance" value="'CrewHireShipPanelBlock';	(_crewId == 0)	? {} : null "/>
+@@ -54031,6 +54054,19 @@
  			</block>
  		</block>
  		<block>
@@ -74,7 +75,7 @@ index 5eb8be1..82f6cde 100644
  			<bind name="visible" value="(_fromCrewSelect == true)"/>
  			<styleClass value="$ContextMenuListItem"/>
  			<block className="dock_submenu_item" type="native">
-@@ -50723,7 +50759,7 @@
+@@ -55641,7 +55677,7 @@
  			<bind name="visible" value="	(selectedShipCrewRetraining.isInAdaptation != true) &amp;&amp; (selectedShipCrew.level &lt; crewsSingleton.maxLevel)"/>
  			<block className="indicator_progress_bar_lightgreen" type="native">
  				<style>
@@ -83,9 +84,9 @@ index 5eb8be1..82f6cde 100644
  				</style>
  				<bind name="value" value="selectedShipCrew.experience"/>
  				<bind name="maximum" value="selectedShipCrew.experienceToRichNextLevel"/>
-@@ -50744,7 +50780,7 @@
+@@ -55662,7 +55698,7 @@
  			<bind name="visible" value="(selectedShipCrewRetraining.isInAdaptation == true)"/>
- 			<block className="indicator_progress_bar_red" type="native">
+ 			<block className="indicator_progress_bar_orange" type="native">
  				<style>
 -					<width value="150px"/>
 +					<width value="120px"/>
