@@ -1,5 +1,5 @@
 diff --git "a/D:\\workspace\\game_client_files\\gui\\unbound\\dock.xml" "b/C:\\Games\\World_of_Warships\\res_mods\\0.8.3.1\\gui\\unbound\\dock.xml"
-index 3bac6ae..4e16fe6 100644
+index 3bac6ae..0d71aa1 100644
 --- "a/D:\\workspace\\game_client_files\\gui\\unbound\\dock.xml"
 +++ "b/C:\\Games\\World_of_Warships\\res_mods\\0.8.3.1\\gui\\unbound\\dock.xml"
 @@ -18704,7 +18704,7 @@
@@ -7,7 +7,7 @@ index 3bac6ae..4e16fe6 100644
  						</style>
  						<bind name="instance" value="'ShipInfoCrewBlock'; isOwned &amp;&amp; (feature_13 != 'locked')	? {	_crewId: crewId,
 -																									_isNotExpanded: !(isExpanded)}
-+																									_isNotExpanded: !(isExpanded), _shipId: shipOwnEntity.ownShip.id}
++																									_isNotExpanded: !(isExpanded), _shipId: shipId}
  																								: null"/>
  					</block>
  				</block>
@@ -16,19 +16,20 @@ index 3bac6ae..4e16fe6 100644
  				<bind name="dispatch" value="'click'; 'evHideCoachScreen'"/>
  				<bind name="action" value="'buttonClick'; 'changeInset'; {inset: LobbyConstants.CREW}"/>
 -				<bind name="instance" value="'ShipInfoCrewBlock'; {_crewId: crewId}"/>
-+				<bind name="instance" value="'ShipInfoCrewBlock'; {_crewId: crewId, _shipId: shipOwnEntity.ownShip.id}"/>
++				<bind name="instance" value="'ShipInfoCrewBlock'; {_crewId: crewId, _shipId: shipId}"/>
  			</block>
  			<block className="icon_mouse_big_left" type="native">
  				<style>
-@@ -52640,10 +52640,33 @@
+@@ -52640,9 +52640,32 @@
  		<bind name="feature" value="13; 'click'"/>
  		<style>
  			<width value="100%"/>
 -			<height value="80px"/>
 +			<height value="135px"/>
  		</style>
- 		<bind name="transition" value="_isNotExpanded; 0.15; {height: 80}; {height: 30}; {height: 80}"/>
- 		<block>
+-		<bind name="transition" value="_isNotExpanded; 0.15; {height: 80}; {height: 30}; {height: 80}"/>
++		<bind name="transition" value="_isNotExpanded; 0.15; {height: 110}; {height: 60}; {height: 110}"/>
++		<block>
 +			<styleClass value="$MiddleAligned"/>
 +			<block>
 +				<bind name="collectionDH" value="CC.userPrefs; 'userPrefsCollection'"/>
@@ -51,10 +52,9 @@ index 3bac6ae..4e16fe6 100644
 +				</block>
 +			</block>
 +		</block>
-+		<block>
+ 		<block>
  			<styleClass value="$Fullsize"/>
  			<bind name="instance" value="'CrewShipPanelBlock';		(_crewId &gt; 0)	? {_crewId: _crewId, _isNotExpanded: _isNotExpanded} : null"/>
- 			<bind name="instance" value="'CrewHireShipPanelBlock';	(_crewId == 0)	? {} : null "/>
 @@ -54031,6 +54054,19 @@
  			</block>
  		</block>

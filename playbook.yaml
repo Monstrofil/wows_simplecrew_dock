@@ -7,6 +7,10 @@
    version: 1.0
    region: "{{ lookup('env','REGION') }}"
    timestamp: "{{lookup('pipe','date +%Y%m%d%H%M%S')}}"
+  pre_tasks:
+    - name: Touch PnFModsLoader
+      file: path=tmp/build/PnFModsLoader.py state=exists
+
   roles:
     - role: prepare
     - role: install_dependencies
