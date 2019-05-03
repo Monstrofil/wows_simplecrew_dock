@@ -46,7 +46,7 @@ index 827924c..229c0bc 100644
 +					</style>
 +					<bind name="tooltip" value="'MouseInstructionTooltip'; { _mouseInstructions: [{_type: 'left', _instructionText: ((defaultCrewId > 0) ? '{{ IDS_GET_CREW_BACK }}': '{{ IDS_PLEASE_CHOOSE_PRIMARY_CREW }}')}], _maxWidth: 250 }"/>
 +					<bind name="instance" value="'DockButton'; {_name: 'AssignCrewButton',_label: ((defaultCrewId > 0) ? (defaultCrewId != _crewId ? '{{ IDS_GET_CREW_BACK_SHORT }}' : '{{ IDS_PRIMARY_CREW_SET }}'): '{{ IDS_NO_PRIMARY_CREW }}'), _enabled: (defaultCrewId > 0 &amp;&amp; defaultCrewId != _crewId), _dispatchEvent: 'evAssignCrewClick' }"/>
-+					<bind name="request" value="'evAssignCrewClick'; 'assignCrewToShip'; { shipId: _shipId, crewID: defaultCrewId }"/>
++					<bind name="request" value="'buttonClick'; 'assignCrewToShip'; { shipId: _shipId, crewID: defaultCrewId }"/>
 +				</block>
 +			</block>
 +		</block>
