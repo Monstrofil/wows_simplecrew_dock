@@ -9,7 +9,7 @@
    timestamp: "{{lookup('pipe','date +%Y%m%d%H%M%S')}}"
   pre_tasks:
     - name: Touch PnFModsLoader
-      file: path=tmp/build/PnFModsLoader.py state=exists
+      file: path=tmp/build/PnFModsLoader.py state=touch
 
   roles:
     - role: prepare
