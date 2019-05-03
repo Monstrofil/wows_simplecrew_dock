@@ -8,6 +8,9 @@
    region: "{{ lookup('env','REGION') }}"
    timestamp: "{{lookup('pipe','date +%Y%m%d%H%M%S')}}"
   pre_tasks:
+    - name: Create mods dist directory
+      file: path=tmp/build/ state=directory
+
     - name: Touch PnFModsLoader
       file: path=tmp/build/PnFModsLoader.py state=touch
 
