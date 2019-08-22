@@ -1,17 +1,8 @@
-diff --git "a/D:\\workspace\\game_client_files\\gui\\unbound\\dock.xml" "b/C:\\Games\\World_of_Warships\\res_mods\\0.8.3.1\\gui\\unbound\\dock.xml"
-index 3bac6ae..0d71aa1 100644
---- "a/D:\\workspace\\game_client_files\\gui\\unbound\\dock.xml"
-+++ "b/C:\\Games\\World_of_Warships\\res_mods\\0.8.3.1\\gui\\unbound\\dock.xml"
-@@ -18704,7 +18704,7 @@
- 							<width value="100%"/>
- 						</style>
- 						<bind name="instance" value="'ShipInfoCrewBlock'; isOwned &amp;&amp; (feature_13 != 'locked')	? {	_crewId: crewId,
--																									_isNotExpanded: !(isExpanded)}
-+																									_isNotExpanded: !(isExpanded), _shipId: shipId}
- 																								: null"/>
- 					</block>
- 				</block>
-@@ -30147,7 +30147,7 @@
+diff --git a/dockOrig.xml b/dock.xml
+index 7711371..06092bb 100644
+--- a/dockOrig.xml
++++ b/dock.xml
+@@ -30139,7 +30139,7 @@
  				</style>
  				<bind name="dispatch" value="'click'; 'evHideCoachScreen'"/>
  				<bind name="action" value="'buttonClick'; 'changeInset'; {inset: LobbyConstants.CREW}"/>
@@ -20,7 +11,7 @@ index 3bac6ae..0d71aa1 100644
  			</block>
  			<block className="icon_mouse_big_left" type="native">
  				<style>
-@@ -52640,9 +52640,32 @@
+@@ -52780,9 +52780,32 @@
  		<bind name="feature" value="13; 'click'"/>
  		<style>
  			<width value="100%"/>
@@ -54,8 +45,8 @@ index 3bac6ae..0d71aa1 100644
 +		</block>
  		<block>
  			<styleClass value="$Fullsize"/>
- 			<bind name="instance" value="'CrewShipPanelBlock';		(_crewId &gt; 0)	? {_crewId: _crewId, _isNotExpanded: _isNotExpanded} : null"/>
-@@ -54031,6 +54054,19 @@
+ 			<bind name="instance" value="'CrewShipPanelBlock';		(_crewId &gt; 0)	? { _crewId: _crewId, _isNotExpanded: _isNotExpanded } : null"/>
+@@ -54167,6 +54190,19 @@
  			</block>
  		</block>
  		<block>
@@ -75,7 +66,7 @@ index 3bac6ae..0d71aa1 100644
  			<bind name="visible" value="(_fromCrewSelect == true)"/>
  			<styleClass value="$ContextMenuListItem"/>
  			<block className="dock_submenu_item" type="native">
-@@ -55641,7 +55677,7 @@
+@@ -55777,7 +55813,7 @@
  			<bind name="visible" value="	(selectedShipCrewRetraining.isInAdaptation != true) &amp;&amp; (selectedShipCrew.level &lt; crewsSingleton.maxLevel)"/>
  			<block className="indicator_progress_bar_lightgreen" type="native">
  				<style>
@@ -84,7 +75,7 @@ index 3bac6ae..0d71aa1 100644
  				</style>
  				<bind name="value" value="selectedShipCrew.experience"/>
  				<bind name="maximum" value="selectedShipCrew.experienceToRichNextLevel"/>
-@@ -55662,7 +55698,7 @@
+@@ -55798,7 +55834,7 @@
  			<bind name="visible" value="(selectedShipCrewRetraining.isInAdaptation == true)"/>
  			<block className="indicator_progress_bar_orange" type="native">
  				<style>
