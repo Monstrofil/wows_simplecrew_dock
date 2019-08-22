@@ -1,17 +1,14 @@
 diff --git a/dockOrig.xml b/dock.xml
-index 7711371..06092bb 100644
+index 7711371..9d82116 100644
 --- a/dockOrig.xml
 +++ b/dock.xml
-@@ -30139,7 +30139,7 @@
- 				</style>
- 				<bind name="dispatch" value="'click'; 'evHideCoachScreen'"/>
- 				<bind name="action" value="'buttonClick'; 'changeInset'; {inset: LobbyConstants.CREW}"/>
--				<bind name="instance" value="'ShipInfoCrewBlock'; {_crewId: crewId}"/>
-+				<bind name="instance" value="'ShipInfoCrewBlock'; {_crewId: crewId, _shipId: shipId}"/>
- 			</block>
- 			<block className="icon_mouse_big_left" type="native">
- 				<style>
-@@ -52780,9 +52780,32 @@
+@@ -52777,12 +52777,38 @@
+ 		</block>
+ 	</block>
+ 	<block className="ShipInfoCrewBlock">
++		<bind name="firstEntityDH" value="'dockEntity'; CC.dockDataMarker"/>
++		<bind name="watchDH" value="'_shipId'; ['dockEntity.shipSelection.evShipUpdate']; dockEntity.shipSelection.currentShipId"/>
++
  		<bind name="feature" value="13; 'click'"/>
  		<style>
  			<width value="100%"/>
@@ -38,7 +35,7 @@ index 7711371..06092bb 100644
 +						<height value="30px"/>
 +					</style>
 +					<bind name="tooltip" value="'MouseInstructionTooltip'; { _mouseInstructions: [{_type: 'left', _instructionText: ((defaultCrewId > 0) ? '{{ IDS_GET_CREW_BACK }}': '{{ IDS_PLEASE_CHOOSE_PRIMARY_CREW }}')}], _maxWidth: 250 }"/>
-+					<bind name="instance" value="'DockButton'; {_name: 'AssignCrewButton',_label: ((defaultCrewId > 0) ? (defaultCrewId != _crewId ? '{{ IDS_GET_CREW_BACK_SHORT }}' : '{{ IDS_PRIMARY_CREW_SET }}'): '{{ IDS_NO_PRIMARY_CREW }}'), _enabled: (defaultCrewId > 0 &amp;&amp; defaultCrewId != _crewId), _dispatchEvent: 'evAssignCrewClick' }"/>
++					<bind name="instance" value="'DockButton'; {_name: 'AssignCrewButton',_label: ((defaultCrewId > 0) ? (defaultCrewId != _crewId ? '{{ IDS_GET_CREW_BACK_SHORT }}' : '{{ IDS_PRIMARY_CREW_SET }}'): 'IDS_NO_PRIMARY_CREW'), _enabled: (defaultCrewId > 0 &amp;&amp; defaultCrewId != _crewId), _dispatchEvent: 'evAssignCrewClick' }"/>
 +					<bind name="request" value="'buttonClick'; 'assignCrewToShip'; { shipId: _shipId, crewID: defaultCrewId }"/>
 +				</block>
 +			</block>
@@ -46,7 +43,7 @@ index 7711371..06092bb 100644
  		<block>
  			<styleClass value="$Fullsize"/>
  			<bind name="instance" value="'CrewShipPanelBlock';		(_crewId &gt; 0)	? { _crewId: _crewId, _isNotExpanded: _isNotExpanded } : null"/>
-@@ -54167,6 +54190,19 @@
+@@ -54167,6 +54193,19 @@
  			</block>
  		</block>
  		<block>
@@ -66,7 +63,7 @@ index 7711371..06092bb 100644
  			<bind name="visible" value="(_fromCrewSelect == true)"/>
  			<styleClass value="$ContextMenuListItem"/>
  			<block className="dock_submenu_item" type="native">
-@@ -55777,7 +55813,7 @@
+@@ -55777,7 +55816,7 @@
  			<bind name="visible" value="	(selectedShipCrewRetraining.isInAdaptation != true) &amp;&amp; (selectedShipCrew.level &lt; crewsSingleton.maxLevel)"/>
  			<block className="indicator_progress_bar_lightgreen" type="native">
  				<style>
@@ -75,7 +72,7 @@ index 7711371..06092bb 100644
  				</style>
  				<bind name="value" value="selectedShipCrew.experience"/>
  				<bind name="maximum" value="selectedShipCrew.experienceToRichNextLevel"/>
-@@ -55798,7 +55834,7 @@
+@@ -55798,7 +55837,7 @@
  			<bind name="visible" value="(selectedShipCrewRetraining.isInAdaptation == true)"/>
  			<block className="indicator_progress_bar_orange" type="native">
  				<style>
