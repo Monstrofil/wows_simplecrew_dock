@@ -1,8 +1,38 @@
 diff --git a/markup.xml b/markup_new.xml
-index 683840c..55eb222 100644
+index 683840c..9aa0d24 100644
 --- a/markup.xml
 +++ b/markup_new.xml
-@@ -30152,6 +30152,19 @@
+@@ -29292,6 +29292,29 @@
+ 		<style>
+ 			<backgroundColor value="0x01000000"/>
+ 		</style>
++		<block>
++			<styleClass value="$MiddleAligned"/>
++			<block>
++				<bind name="collectionDH" value="CC.userPrefs; 'userPrefsCollection'"/>
++				<bind name="entityDH" value="'userPrefsEntity'; userPrefsCollection[0].id"/>
++				<bind name="watchDH" value="'userPrefs'; ['userPrefsEntity.userPrefs.evUserPrefsChanged']; userPrefsEntity.userPrefs.userPrefs"/>
++				<bind name="watch" value="'defaultCrewId'; (userPrefs.IMPositionX['crew_ship_' + shipId] == null) ? 0 : userPrefs.IMPositionX['crew_ship_' + shipId] "/>
++				<style>
++					<marginLeft value="5px"/>
++					<marginTop value="2px"/>
++				</style>
++
++				<block>
++					<style>
++						<width value="200px"/>
++						<height value="30px"/>
++					</style>
++					<bind name="tooltip" value="'MouseInstructionTooltip'; { _mouseInstructions: [{_type: 'left', _instructionText: ((defaultCrewId > 0) ? '{{ IDS_GET_CREW_BACK }}': '{{ IDS_PLEASE_CHOOSE_PRIMARY_CREW }}')}], _maxWidth: 250 }"/>
++					<bind name="instance" value="'DockButton'; {_name: 'AssignCrewButton',_label: ((defaultCrewId > 0) ? (defaultCrewId != _crewId ? '{{ IDS_GET_CREW_BACK_SHORT }}' : '{{ IDS_PRIMARY_CREW_SET }}'): '{{ IDS_NO_PRIMARY_CREW }}'), _enabled: (defaultCrewId > 0 &amp;&amp; defaultCrewId != _crewId), _dispatchEvent: 'evAssignCrewClick' }"/>
++					<bind name="request" value="'buttonClick'; 'assignCrewToShip'; { shipId: shipId, crewID: defaultCrewId }"/>
++				</block>
++			</block>
++		</block>
+ 		<block>
+ 			<bind name="fade" value="!(rollOver); 0.15; {alpha: 0, top: -10}; {alpha: 1, top: 0}"/>
+ 			<style>
+@@ -30152,6 +30175,19 @@
  			<bind name="instance" value="'InfotipBg'; _isInfotip ? {} : null"/>
  			<bind name="instance" value="'ContextMenuBg'; !(_isInfotip) ? {} : null"/>
  		</block>
@@ -22,7 +52,7 @@ index 683840c..55eb222 100644
  		<block>
  			<bind name="visible" value="(_fromCrewSelect == true)"/>
  			<styleClass value="$ContextMenuListItem"/>
-@@ -122373,12 +122386,37 @@
+@@ -122373,12 +122409,37 @@
  		</block>
  	</block>
  	<block className="ShipInfoCrewBlock">
