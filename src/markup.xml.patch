@@ -1,0 +1,64 @@
+diff --git a/markup.xml b/markup_new.xml
+index 683840c..55eb222 100644
+--- a/markup.xml
++++ b/markup_new.xml
+@@ -30152,6 +30152,19 @@
+ 			<bind name="instance" value="'InfotipBg'; _isInfotip ? {} : null"/>
+ 			<bind name="instance" value="'ContextMenuBg'; !(_isInfotip) ? {} : null"/>
+ 		</block>
++		<block>
++			<styleClass value="$ContextMenuListItem"/>
++			<block className="dock_submenu_item" type="native">
++				<styleClass value="$FullsizeAbsolute"/>
++				<bind name="action" value="'buttonClick' ; 'setUserPref' ; {value : crew.id, name : 'IMPositionX', subName: 'crew_ship_' + crew.shipID}"/>
++			</block>
++			<block type="text">
++				<styleClass value="$TextDefault"/>
++				<styleClass value="$MiddleVAligned"/>
++				<styleClass value="$ContextMenuListItemContent"/>
++				<text value="{{ IDS_MARK_AS_PRIMARY }}"/>
++			</block>
++		</block>
+ 		<block>
+ 			<bind name="visible" value="(_fromCrewSelect == true)"/>
+ 			<styleClass value="$ContextMenuListItem"/>
+@@ -122373,12 +122386,37 @@
+ 		</block>
+ 	</block>
+ 	<block className="ShipInfoCrewBlock">
++		<bind name="firstEntityDH" value="'dockEntity'; CC.dockDataMarker"/>
++		<bind name="watchDH" value="'_shipId'; ['dockEntity.shipSelection.evShipUpdate']; dockEntity.shipSelection.currentShipId"/>
+ 		<bind name="feature" value="13; 'click'"/>
+ 		<style>
+ 			<width value="100%"/>
+-			<height value="85px"/>
++			<height value="135px"/>
+ 		</style>
+-		<bind name="transition" value="_isNotExpanded; 0.15; {height: 85}; {height: 30}; {height: 85}"/>
++		<bind name="transition" value="_isNotExpanded; 0.15; {height: 110}; {height: 60}; {height: 110}"/>
++		<block>
++			<styleClass value="$MiddleAligned"/>
++			<block>
++				<bind name="collectionDH" value="CC.userPrefs; 'userPrefsCollection'"/>
++				<bind name="entityDH" value="'userPrefsEntity'; userPrefsCollection[0].id"/>
++				<bind name="watchDH" value="'userPrefs'; ['userPrefsEntity.userPrefs.evUserPrefsChanged']; userPrefsEntity.userPrefs.userPrefs"/>
++				<bind name="watch" value="'defaultCrewId'; (userPrefs.IMPositionX['crew_ship_' + _shipId] == null) ? 0 : userPrefs.IMPositionX['crew_ship_' + _shipId] "/>
++				<style>
++					<marginLeft value="5px"/>
++					<marginTop value="2px"/>
++				</style>
++
++				<block>
++					<style>
++						<width value="200px"/>
++						<height value="30px"/>
++					</style>
++					<bind name="tooltip" value="'MouseInstructionTooltip'; { _mouseInstructions: [{_type: 'left', _instructionText: ((defaultCrewId > 0) ? '{{ IDS_GET_CREW_BACK }}': '{{ IDS_PLEASE_CHOOSE_PRIMARY_CREW }}')}], _maxWidth: 250 }"/>
++					<bind name="instance" value="'DockButton'; {_name: 'AssignCrewButton',_label: ((defaultCrewId > 0) ? (defaultCrewId != _crewId ? '{{ IDS_GET_CREW_BACK_SHORT }}' : '{{ IDS_PRIMARY_CREW_SET }}'): '{{ IDS_NO_PRIMARY_CREW }}'), _enabled: (defaultCrewId > 0 &amp;&amp; defaultCrewId != _crewId), _dispatchEvent: 'evAssignCrewClick' }"/>
++					<bind name="request" value="'buttonClick'; 'assignCrewToShip'; { shipId: _shipId, crewID: defaultCrewId }"/>
++				</block>
++			</block>
++		</block>
+ 		<bind name="fade" value="_isCrewBlockVisible;	0.15;	{alpha: 0, ubScaleY: 0, scaleY: 0};
+ 												{alpha: 1, ubScaleY: 1, scaleY: 1};
+ 												{alpha: 0, ubScaleY: 0, scaleY: 0}"/>

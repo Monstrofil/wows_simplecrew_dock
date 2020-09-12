@@ -21,16 +21,16 @@
         - { git_repo: 'https://github.com/Monstrofil/game_client_files.git', destination: '@game-files' }
     - role: copy_required_files
       files:
-        - { src: '@game-files/gui/unbound/dock.xml',
+        - { src: '@game-files/gui/unbound/markup.xml',
             destination: 'gui/unbound/' }
     - role: patch
       patches:
-        - { patch: 'src/dock.xml.patch', original: 'gui/unbound/dock.xml' }
+        - { patch: 'src/markup.xml.patch', original: 'gui/unbound/markup.xml' }
     - role: translate
       items:
-        - { filename: 'gui/unbound/dock.xml' }
+        - { filename: 'gui/unbound/markup.xml' }
     - role: usscompile
       files:
-        - { src: 'gui/unbound/dock.xml', name: 'simple_crew' }
+        - { src: 'gui/unbound/markup.xml', name: 'simple_crew' }
     - role: create_package
     - role: cleanup
