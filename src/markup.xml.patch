@@ -1,38 +1,8 @@
-diff --git a/markup.xml b/markup_new.xml
-index 683840c..9aa0d24 100644
+diff --git a/markup.xml b/markup_mod.xml
+index 683840c..841e02f 100644
 --- a/markup.xml
-+++ b/markup_new.xml
-@@ -29292,6 +29292,29 @@
- 		<style>
- 			<backgroundColor value="0x01000000"/>
- 		</style>
-+		<block>
-+			<styleClass value="$MiddleAligned"/>
-+			<block>
-+				<bind name="collectionDH" value="CC.userPrefs; 'userPrefsCollection'"/>
-+				<bind name="entityDH" value="'userPrefsEntity'; userPrefsCollection[0].id"/>
-+				<bind name="watchDH" value="'userPrefs'; ['userPrefsEntity.userPrefs.evUserPrefsChanged']; userPrefsEntity.userPrefs.userPrefs"/>
-+				<bind name="watch" value="'defaultCrewId'; (userPrefs.IMPositionX['crew_ship_' + shipId] == null) ? 0 : userPrefs.IMPositionX['crew_ship_' + shipId] "/>
-+				<style>
-+					<marginLeft value="5px"/>
-+					<marginTop value="2px"/>
-+				</style>
-+
-+				<block>
-+					<style>
-+						<width value="200px"/>
-+						<height value="30px"/>
-+					</style>
-+					<bind name="tooltip" value="'MouseInstructionTooltip'; { _mouseInstructions: [{_type: 'left', _instructionText: ((defaultCrewId > 0) ? '{{ IDS_GET_CREW_BACK }}': '{{ IDS_PLEASE_CHOOSE_PRIMARY_CREW }}')}], _maxWidth: 250 }"/>
-+					<bind name="instance" value="'DockButton'; {_name: 'AssignCrewButton',_label: ((defaultCrewId > 0) ? (defaultCrewId != _crewId ? '{{ IDS_GET_CREW_BACK_SHORT }}' : '{{ IDS_PRIMARY_CREW_SET }}'): '{{ IDS_NO_PRIMARY_CREW }}'), _enabled: (defaultCrewId > 0 &amp;&amp; defaultCrewId != _crewId), _dispatchEvent: 'evAssignCrewClick' }"/>
-+					<bind name="request" value="'buttonClick'; 'assignCrewToShip'; { shipId: shipId, crewID: defaultCrewId }"/>
-+				</block>
-+			</block>
-+		</block>
- 		<block>
- 			<bind name="fade" value="!(rollOver); 0.15; {alpha: 0, top: -10}; {alpha: 1, top: 0}"/>
- 			<style>
-@@ -30152,6 +30175,19 @@
++++ b/markup_mod.xml
+@@ -30152,6 +30152,19 @@
  			<bind name="instance" value="'InfotipBg'; _isInfotip ? {} : null"/>
  			<bind name="instance" value="'ContextMenuBg'; !(_isInfotip) ? {} : null"/>
  		</block>
@@ -52,7 +22,7 @@ index 683840c..9aa0d24 100644
  		<block>
  			<bind name="visible" value="(_fromCrewSelect == true)"/>
  			<styleClass value="$ContextMenuListItem"/>
-@@ -122373,12 +122409,37 @@
+@@ -122373,12 +122386,14 @@
  		</block>
  	</block>
  	<block className="ShipInfoCrewBlock">
@@ -66,29 +36,51 @@ index 683840c..9aa0d24 100644
  		</style>
 -		<bind name="transition" value="_isNotExpanded; 0.15; {height: 85}; {height: 30}; {height: 85}"/>
 +		<bind name="transition" value="_isNotExpanded; 0.15; {height: 110}; {height: 60}; {height: 110}"/>
-+		<block>
-+			<styleClass value="$MiddleAligned"/>
-+			<block>
-+				<bind name="collectionDH" value="CC.userPrefs; 'userPrefsCollection'"/>
-+				<bind name="entityDH" value="'userPrefsEntity'; userPrefsCollection[0].id"/>
-+				<bind name="watchDH" value="'userPrefs'; ['userPrefsEntity.userPrefs.evUserPrefsChanged']; userPrefsEntity.userPrefs.userPrefs"/>
-+				<bind name="watch" value="'defaultCrewId'; (userPrefs.IMPositionX['crew_ship_' + _shipId] == null) ? 0 : userPrefs.IMPositionX['crew_ship_' + _shipId] "/>
-+				<style>
-+					<marginLeft value="5px"/>
-+					<marginTop value="2px"/>
-+				</style>
-+
-+				<block>
-+					<style>
-+						<width value="200px"/>
-+						<height value="30px"/>
-+					</style>
-+					<bind name="tooltip" value="'MouseInstructionTooltip'; { _mouseInstructions: [{_type: 'left', _instructionText: ((defaultCrewId > 0) ? '{{ IDS_GET_CREW_BACK }}': '{{ IDS_PLEASE_CHOOSE_PRIMARY_CREW }}')}], _maxWidth: 250 }"/>
-+					<bind name="instance" value="'DockButton'; {_name: 'AssignCrewButton',_label: ((defaultCrewId > 0) ? (defaultCrewId != _crewId ? '{{ IDS_GET_CREW_BACK_SHORT }}' : '{{ IDS_PRIMARY_CREW_SET }}'): '{{ IDS_NO_PRIMARY_CREW }}'), _enabled: (defaultCrewId > 0 &amp;&amp; defaultCrewId != _crewId), _dispatchEvent: 'evAssignCrewClick' }"/>
-+					<bind name="request" value="'buttonClick'; 'assignCrewToShip'; { shipId: _shipId, crewID: defaultCrewId }"/>
-+				</block>
-+			</block>
-+		</block>
  		<bind name="fade" value="_isCrewBlockVisible;	0.15;	{alpha: 0, ubScaleY: 0, scaleY: 0};
  												{alpha: 1, ubScaleY: 1, scaleY: 1};
  												{alpha: 0, ubScaleY: 0, scaleY: 0}"/>
+@@ -123092,9 +123107,44 @@
+ 					<bind name="watch" value="'isCrewBlockVisible';	isOwned &amp;&amp;
+ 													(feature_13 != 'locked') &amp;&amp; (dockStateName != 'shipyard')"/>
+ 					<block>
++						<bind name="firstEntityDH" value="'dockEntity'; CC.dockDataMarker"/>
++						<bind name="watchDH" value="'_shipId'; ['dockEntity.shipSelection.evShipUpdate']; dockEntity.shipSelection.currentShipId"/>
+ 						<style>
+ 							<width value="100%"/>
+ 						</style>
++						<block>
++							<styleClass value="$MiddleAligned"/>
++							<block>
++								<bind name="collectionDH" value="CC.userPrefs; 'userPrefsCollection'"/>
++								<bind name="entityDH" value="'userPrefsEntity'; userPrefsCollection[0].id"/>
++								<bind name="watchDH" value="'userPrefs'; ['userPrefsEntity.userPrefs.evUserPrefsChanged']; userPrefsEntity.userPrefs.userPrefs"/>
++								<bind name="watch" value="'defaultCrewId'; (userPrefs.IMPositionX['crew_ship_' + _shipId] == null) ? 0 : userPrefs.IMPositionX['crew_ship_' + _shipId] "/>
++								<style>
++									<marginLeft value="5px"/>
++									<marginTop value="2px"/>
++								</style>
++
++								<block>
++									<style>
++										<width value="200px"/>
++										<height value="30px"/>
++									</style>
++									<bind name="tooltip" value="'MouseInstructionTooltip'; { _mouseInstructions: [{_type: 'left', _instructionText: ((defaultCrewId > 0) ? '{{ IDS_GET_CREW_BACK }}': '{{ IDS_PLEASE_CHOOSE_PRIMARY_CREW }}')}], _maxWidth: 250 }"/>
++									<bind name="instance" value="'DockButton'; {_name: 'AssignCrewButton',_label: ((defaultCrewId > 0) ? (defaultCrewId != crewId ? '{{ IDS_GET_CREW_BACK_SHORT }}' : '{{ IDS_PRIMARY_CREW_SET }}'): '{{ IDS_NO_PRIMARY_CREW }}'), _enabled: (defaultCrewId > 0 &amp;&amp; defaultCrewId != crewId), _dispatchEvent: 'evAssignCrewClick' }"/>
++									<bind name="request" value="'buttonClick'; 'assignCrewToShip'; { shipId: _shipId, crewID: defaultCrewId }"/>
++								</block>
++							</block>
++							<block className="HorizontalDivider">
++								<styleClass value="$PxHorizontalCorrection"/>
++								<style>
++									<width value="100%"/>
++									<height value="2px"/>
++									<backgroundSize value="fill"/>
++									<marginTop value="1px"/>
++									<backgroundImage value="url:../service_kit/dividers/divider_h.png"/>
++								</style>
++							</block>
++						</block>
+ 						<bind name="instance" value="'ShipInfoCrewBlock'; {	_crewId: crewId,
+ 															_currentTTXShipId: verifiedShipId,
+ 															_isNotExpanded: !(isExpanded),
