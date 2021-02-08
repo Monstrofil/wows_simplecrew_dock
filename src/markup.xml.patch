@@ -67,7 +67,7 @@ index 4058906..c58ba15 100644
 +				<style>
 +					<width value="200px"/>
 +				</style>
-+				<bind name="tooltip" value="'MouseInstructionTooltip'; { _mouseInstructions: [{_type: 'left', _instructionText: ((defaultCrewId > 0) ? '{{ IDS_GET_CREW_BACK }}' + defaultCrewId: '{{ IDS_PLEASE_CHOOSE_PRIMARY_CREW }}')}], _maxWidth: 250 }"/>
++				<bind name="tooltip" value="'MouseInstructionTooltip'; { _mouseInstructions: [{_type: 'left', _instructionText: ((defaultCrewId > 0) ? '{{ IDS_GET_CREW_BACK }}': '{{ IDS_PLEASE_CHOOSE_PRIMARY_CREW }}')}], _maxWidth: 250 }"/>
 +				
 +				<bind name="instance" value="'InfopanelButton';	canAssignWithoutRetrain ?	{	_label: '{{ IDS_GET_CREW_BACK_SHORT }}',
 +						_height: '25px',
